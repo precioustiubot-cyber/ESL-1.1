@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESL Lesson: New Community Garden</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chosen Palette: Warm Neutrals -->
+    <!-- Application Structure Plan: A tab-based, single-page application structure was chosen to transform the linear lesson plan into an interactive learning experience. The structure is divided into four clear, task-oriented tabs: "Story," "Vocabulary," "Grammar," and "Practice." This design allows learners to freely navigate between different lesson components, reinforcing learning through repetition and self-paced exploration. For example, a user can read the story, jump to the vocabulary tab to study the new words using interactive flashcards, then return to the story. The practice tab provides immediate feedback, turning passive exercises into active learning moments. This non-linear, modular approach is more engaging and effective for adult learners than a simple top-to-bottom document, as it mimics the functionality of a modern learning application and puts the user in control of their educational journey. -->
+    <!-- Visualization & Content Choices: The lesson's content was transformed into interactive components. Goal: Vocabulary acquisition -> Method: Interactive Flashcards -> Interaction: Users click a card to "flip" it and reveal the definition, promoting active recall. Goal: Grammar Application -> Method: Interactive Quiz -> Interaction: Users input answers and click a button to get immediate color-coded feedback (correct/incorrect), which is crucial for reinforcement. Goal: Reading Comprehension -> Method: Interactive Text -> Interaction: Key vocabulary in the story is highlighted and clickable, showing a tooltip with the definition on hover. This directly links reading to vocabulary study. These choices create an integrated learning environment where each part supports the others, all within a single, cohesive application. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .tab-btn.active {
+            border-color: #4f46e5;
+            background-color: #eef2ff;
+            color: #4f46e5;
+        }
+        .flashcard-inner {
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        .flashcard.flipped .flashcard-inner {
+            transform: rotateY(180deg);
+        }
+        .flashcard-front, .flashcard-back {
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+        .flashcard-back {
+            transform: rotateY(180deg);
+        }
+        .feedback {
+            display: none;
+            font-weight: bold;
+        }
+        .feedback.correct {
+            display: inline;
+            color: #16a34a;
+        }
+        .feedback.incorrect {
+            display: inline;
+            color: #dc2626;
+        }
+        .tooltip {
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .has-tooltip:hover .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-8 max-w-4xl">
+        <header class="text-center mb-8">
+            <h1 class="text-3xl sm:text-4xl font-bold text-indigo-700">ESL Lesson: Local Food Festival</h1>
+            <p class="text-slate-600 mt-2">An interactive lesson for intermediate beginners.</p>
+        </header>
+
+        <main>
+            <div class="mb-6 border-b border-slate-200">
+                <nav class="flex flex-wrap -mb-px" id="tab-nav">
+                    <button class="tab-btn active text-lg font-medium p-4 border-b-2 border-transparent rounded-t-lg hover:text-slate-600 hover:border-slate-300" data-tab="story">1. Story</button>
+                    <button class="tab-btn text-lg font-medium p-4 border-b-2 border-transparent rounded-t-lg hover:text-slate-600 hover:border-slate-300" data-tab="vocabulary">2. Vocabulary</button>
+                    <button class="tab-btn text-lg font-medium p-4 border-b-2 border-transparent rounded-t-lg hover:text-slate-600 hover:border-slate-300" data-tab="grammar">3. Grammar</button>
+                    <button class="tab-btn text-lg font-medium p-4 border-b-2 border-transparent rounded-t-lg hover:text-slate-600 hover:border-slate-300" data-tab="practice">4. Practice</button>
+                </nav>
+            </div>
+
+            <div id="tab-content" class="bg-white p-6 sm:p-8 rounded-lg shadow-md">
+                <section id="story" class="tab-pane active space-y-4">
+                    <h2 class="text-2xl font-semibold mb-4 text-indigo-600">Part 1: The News Story</h2>
+                    <div class="prose max-w-none text-lg leading-relaxed">
+                        <img src="https://placehold.co/600x300/a5b4fc/4338ca?text=Food+Festival" alt="A local food festival with many people and food stalls" class="rounded-lg w-full mb-6">
+                        <p class="mb-4">Hello and welcome to today's news!</p>
+                        <p>Last weekend, our city <span class="has-tooltip relative font-bold text-indigo-600 cursor-pointer">celebrated<span class="tooltip absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max max-w-xs bg-slate-800 text-white text-sm rounded py-1 px-2">to do something special to show you are happy about an event</span></span> its first annual food <span class="has-tooltip relative font-bold text-indigo-600 cursor-pointer">festival<span class="tooltip absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max max-w-xs bg-slate-800 text-white text-sm rounded py-1 px-2">a special event with a lot of activities</span></span>. People <span class="has-tooltip relative font-bold text-indigo-600 cursor-pointer">gathered<span class="tooltip absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max max-w-xs bg-slate-800 text-white text-sm rounded py-1 px-2">to come together in a group</span></span> in the main park to eat and talk. There were many different food stalls with <span class="has-tooltip relative font-bold text-indigo-600 cursor-pointer">delicious<span class="tooltip absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max max-w-xs bg-slate-800 text-white text-sm rounded py-1 px-2">having a very pleasant taste or smell</span></span> meals.</p>
+                        <p>Many local restaurants <span class="has-tooltip relative font-bold text-indigo-600 cursor-pointer">participated<span class="tooltip absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max max-w-xs bg-slate-800 text-white text-sm rounded py-1 px-2">to take part in an activity or event</span></span> in the festival. They <span class="has-tooltip relative font-bold text-indigo-600 cursor-pointer">offered<span class="tooltip absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max max-w-xs bg-slate-800 text-white text-sm rounded py-1 px-2">to ask if someone would like to have something</span></span> free samples of their food. Everyone <span class="has-tooltip relative font-bold text-indigo-600 cursor-pointer">enjoyed<span class="tooltip absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max max-w-xs bg-slate-800 text-white text-sm rounded py-1 px-2">to get pleasure from something</span></span> the day very much. The city leaders <span class="has-tooltip relative font-bold text-indigo-600 cursor-pointer">announced<span class="tooltip absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max max-w-xs bg-slate-800 text-white text-sm rounded py-1 px-2">to tell people something officially or publicly</span></span> that the food festival will be an annual event.</p>
+                    </div>
+                </section>
+
+                <section id="vocabulary" class="tab-pane hidden">
+                    <h2 class="text-2xl font-semibold mb-4 text-indigo-600">Part 2: New Words</h2>
+                    <p class="mb-6 text-slate-600">Click on a card to see the definition and an example.</p>
+                    <div id="flashcards-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    </div>
+                </section>
+
+                <section id="grammar" class="tab-pane hidden space-y-6">
+                    <h2 class="text-2xl font-semibold mb-4 text-indigo-600">Part 3: Grammar Focus</h2>
+                    <div>
+                        <h3 class="text-xl font-semibold mb-2">Simple Past Tense (Regular Verbs)</h3>
+                        <p class="text-slate-600 mb-4">We use the simple past tense to talk about actions that finished in the past. For regular verbs, we add **-ed** to the base form.</p>
+                        <div class="space-y-4">
+                            <div class="bg-indigo-50 p-4 rounded-lg">
+                                <p class="font-bold text-indigo-800">Rule 1: Most verbs</p>
+                                <p class="text-slate-700">Add **-ed** to the base form.</p>
+                                <ul class="list-disc list-inside mt-2 text-slate-700">
+                                    <li>Example: work &rarr; worked</li>
+                                    <li>Example: help &rarr; helped</li>
+                                </ul>
+                            </div>
+                            <div class="bg-green-50 p-4 rounded-lg">
+                                <p class="font-bold text-green-800">Rule 2: Verbs ending in -e</p>
+                                <p class="text-slate-700">Add only **-d** to the base form.</p>
+                                <ul class="list-disc list-inside mt-2 text-slate-700">
+                                    <li>Example: celebrate &rarr; celebrated</li>
+                                    <li>Example: live &rarr; lived</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="practice" class="tab-pane hidden space-y-8">
+                    <h2 class="text-2xl font-semibold mb-4 text-indigo-600">Part 4: Practice Time!</h2>
+                    
+                    <div class="practice-section">
+                        <h3 class="text-xl font-semibold mb-4">A. Simple Past Practice</h3>
+                        <p class="text-slate-600 mb-4">Complete the sentences with the correct simple past tense form of the verb.</p>
+                        <div class="space-y-4" id="quiz-a"></div>
+                    </div>
+
+                    <div class="practice-section">
+                        <h3 class="text-xl font-semibold mb-4">B. Correct the Sentences</h3>
+                        <p class="text-slate-600 mb-4">Find and fix the one mistake in each sentence.</p>
+                        <div class="space-y-4" id="quiz-b"></div>
+                    </div>
+
+                     <div class="practice-section">
+                        <h3 class="text-xl font-semibold mb-4">C. Write Your Own Sentences</h3>
+                        <p class="text-slate-600 mb-4">Write two sentences about what you did yesterday using the simple past tense.</p>
+                        <textarea class="w-full p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" rows="4" placeholder="Example: I worked at my office. I watched a movie."></textarea>
+                    </div>
+
+                    <div class="practice-section">
+                        <h3 class="text-xl font-semibold mb-4">Part 5: Conversation Starters</h3>
+                        <ul class="list-disc list-inside space-y-2 text-slate-700">
+                            <li>Did you go to any festivals last year? What did you do there?</li>
+                            <li>What kind of food do you like to eat?</li>
+                            <li>What did you do yesterday?</li>
+                        </ul>
+                    </div>
+                </section>
+            </div>
+        </main>
+        
+        <footer class="text-center mt-8 text-sm text-slate-500">
+            <p>Interactive ESL Lesson | Created with HTML, Tailwind CSS, and JavaScript</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const lessonData = {
+                vocabulary: [
+                    { word: 'celebrate', definition: 'to do something special to show you are happy about an event', example: 'We celebrated his birthday.' },
+                    { word: 'festival', definition: 'a special event with a lot of activities', example: 'The music festival was popular.' },
+                    { word: 'gather', definition: 'to come together in a group', example: 'The students gathered for class.' },
+                    { word: 'delicious', definition: 'having a very pleasant taste or smell', example: 'The soup was delicious.' },
+                    { word: 'participate', definition: 'to take part in an activity or event', example: 'Did you participate in the race?' },
+                    { word: 'offer', definition: 'to ask if someone would like to have something', example: 'They offered me a coffee.' },
+                    { word: 'enjoy', definition: 'to get pleasure from something', example: 'We enjoyed the movie.' },
+                    { word: 'announce', definition: 'to tell people something officially or publicly', example: 'He announced the winner.' }
+                ],
+                quizA: [
+                    { question: '1. The people ____ (gather) at the park.', answer: 'gathered' },
+                    { question: '2. She ____ (enjoy) the food festival.', answer: 'enjoyed' },
+                    { question: '3. He ____ (work) on a new project last week.', answer: 'worked' },
+                    { question: '4. They ____ (participate) in the event.', answer: 'participated' }
+                ],
+                quizB: [
+                    { question: '1. We celebrated an important day.', answer: 'We celebrated an important day.' },
+                    { question: '2. The manager announces the new rule.', answer: 'The manager announced the new rule.' },
+                    { question: '3. She played the piano last night.', answer: 'She played the piano last night.' }
+                ]
+            };
+            
+            const flashcardsContainer = document.getElementById('flashcards-container');
+            flashcardsContainer.innerHTML = '';
+            lessonData.vocabulary.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'flashcard bg-white rounded-lg shadow cursor-pointer h-40 perspective-1000';
+                card.innerHTML = `
+                    <div class="flashcard-inner relative w-full h-full">
+                        <div class="flashcard-front absolute w-full h-full flex items-center justify-center bg-indigo-100 rounded-lg p-4">
+                            <h3 class="text-2xl font-bold text-indigo-800">${item.word}</h3>
+                        </div>
+                        <div class="flashcard-back absolute w-full h-full bg-slate-100 rounded-lg p-4 flex flex-col justify-center">
+                            <p class="font-semibold text-slate-700">${item.definition}</p>
+                            <p class="text-sm text-slate-500 mt-2"><em>Example: ${item.example}</em></p>
+                        </div>
+                    </div>
+                `;
+                card.addEventListener('click', () => {
+                    card.classList.toggle('flipped');
+                });
+                flashcardsContainer.appendChild(card);
+            });
+
+            const quizAContainer = document.getElementById('quiz-a');
+            quizAContainer.innerHTML = '';
+            lessonData.quizA.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.innerHTML = `
+                    <label for="q-a-${index}" class="block mb-1 text-slate-700">${item.question}</label>
+                    <div class="flex items-center space-x-2">
+                        <input id="q-a-${index}" type="text" class="w-full sm:w-1/2 p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                        <button class="check-btn bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700" data-answer="${item.answer}">Check</button>
+                        <span class="feedback"></span>
+                    </div>
+                `;
+                quizAContainer.appendChild(div);
+            });
+            
+            const quizBContainer = document.getElementById('quiz-b');
+            quizBContainer.innerHTML = '';
+            lessonData.quizB.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.innerHTML = `
+                    <label for="q-b-${index}" class="block mb-1 text-slate-700">${item.question}</label>
+                    <div class="flex items-center space-x-2">
+                         <input id="q-b-${index}" type="text" class="w-full sm:w-2/3 p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                        <button class="check-btn bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700" data-answer="${item.answer}">Check</button>
+                         <span class="feedback"></span>
+                    </div>
+                `;
+                quizBContainer.appendChild(div);
+            });
+
+            document.getElementById('practice').addEventListener('click', function(e) {
+                if (e.target.classList.contains('check-btn')) {
+                    const input = e.target.previousElementSibling;
+                    const feedback = e.target.nextElementSibling;
+                    const userAnswer = input.value.trim().toLowerCase().replace(/[.]/g, '');
+                    const correctAnswer = e.target.dataset.answer.toLowerCase().replace(/[.]/g, '');
+
+                    feedback.classList.remove('correct', 'incorrect');
+                    if (userAnswer === correctAnswer) {
+                        feedback.textContent = 'Correct!';
+                        feedback.classList.add('correct');
+                        input.classList.remove('border-red-400');
+                        input.classList.add('border-green-400');
+                    } else {
+                        feedback.innerHTML = `Incorrect. Try: <em>${e.target.dataset.answer}</em>`;
+                        feedback.classList.add('incorrect');
+                         input.classList.remove('border-green-400');
+                        input.classList.add('border-red-400');
+                    }
+                }
+            });
+
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            const tabPanes = document.querySelectorAll('.tab-pane');
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const tabId = button.dataset.tab;
+
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+
+                    tabPanes.forEach(pane => {
+                        if (pane.id === tabId) {
+                            pane.classList.remove('hidden');
+                            pane.classList.add('active');
+                        } else {
+                            pane.classList.add('hidden');
+                            pane.classList.remove('active');
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
